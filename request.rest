@@ -1,0 +1,21 @@
+GET http://localhost:3000/posts
+
+###
+GET http://localhost:3000/posts/677aa9fa5bc8973b21a73f04
+
+###
+GET http://localhost:3000/posts?sender=KimK
+
+###
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+    "content": "This is my first post",
+    "owner": "KimK",
+    "username": "KimK",
+    "userImgUrl": "lulu"
+}
+
+###
+DELETE http://localhost:3000/posts/677a8e9b076fab5c9f9d9ba9
