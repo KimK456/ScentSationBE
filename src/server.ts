@@ -6,11 +6,13 @@ import express, { Express } from "express";
 import postsRoute from "./routes/posts_route";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUI from "swagger-ui-express";
+import usersRoute from "./routes/users_route"
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/posts", postsRoute);
+app.use("/users", usersRoute);
 
 const options = {
   definition: {
