@@ -2,8 +2,8 @@ import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import { AuthResquest } from "../middlewares/authentication.middleware";
 import UserModel from "../models/user.model";
-import { User } from "../types";
-import { BaseController } from "./base.controller";
+import { User } from "../types/user.type";
+import { BaseController } from "./base_controller";
 
 class UserController extends BaseController<User> {
   constructor() {
