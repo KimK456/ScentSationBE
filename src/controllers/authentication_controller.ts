@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import { OAuth2Client } from "google-auth-library";
 import jwt from "jsonwebtoken";
 import { Document } from "mongoose";
-import UserModel from "../models/user.model";
+import UserModel from "../models/user_model";
 import { User } from "../types/user.type";
 
 
