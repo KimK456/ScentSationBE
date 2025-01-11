@@ -3,7 +3,7 @@ import request from "supertest";
 import initApp from "../server";
 import mongoose from "mongoose";
 import { Express } from "express";
-import UserModel from "../models/user.model";
+import UserModel from "../models/user_model";
 import { User } from "../types/user.type";
 
 let app: Express;
