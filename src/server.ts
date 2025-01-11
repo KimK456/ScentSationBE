@@ -6,11 +6,17 @@ import express, { Express } from "express";
 import postsRoute from "./routes/posts_route";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUI from "swagger-ui-express";
+import userRoute from "./routes/user.route";
+import authRoute from "./routes/authentication.route"
+import fileRoute from "./routes/file.route"
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/posts", postsRoute);
+app.use("/user", userRoute);
+app.use("/auth", authRoute);
+app.use("/file", fileRoute)
 
 const options = {
   definition: {
