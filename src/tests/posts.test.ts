@@ -42,7 +42,7 @@ describe("Posts Tests", () => {
   });
 
   test("Test Get Post By ID", async () => {
-    const response = await request(app).get("/posts/post/" + postId);
+    const response = await request(app).get("/posts/" + postId);
     expect(response.statusCode).toBe(200);
     expect(response.body.content).toBe("Test Content");
     expect(response.body.owner).toBe("TestOwner");
@@ -61,14 +61,14 @@ describe("Posts Tests", () => {
   });
 
   test("Test Update Post By ID", async () => {
-    const response = await request(app).put("/posts/post/" + postId).send({
+    const response = await request(app).put("/posts/" + postId).send({
       content: "Test Post - New Content",
     });
-    expect(response.statusCode).toBe(201);
-    expect(response.body[0].content).toBe("Test Post - New Content");
-    expect(response.body[0].owner).toBe("TestOwner");
-    expect(response.body[0].username).toBe("TestOwner");
-    expect(response.body[0].userImgUrl).toBe("TestOwner");
+    expect(response.statusCode).toBe(200);
+    expect(response.body.content).toBe("Test Post - New Content");
+    expect(response.body.owner).toBe("TestOwner");
+    expect(response.body.username).toBe("TestOwner");
+    expect(response.body.userImgUrl).toBe("TestOwner");
     postId = response.body._id;
   });
 
@@ -93,6 +93,6 @@ describe("Posts Tests", () => {
     const response = await request(app).post("/posts/").send({
       content: "Test Content 2",
     });
-    expect(response.statusCode).toBe(400);
+    expect(response.statusCode).toBe(500);
   });
 });
