@@ -97,12 +97,12 @@ const register = async (req: Request, res: Response) => {
 };
 
 const generateTokens = async (user: Document & User) => {
-  const accessToken = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRATION,
+  const accessToken = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+    expiresIn: process.env.TOKEN_EXPIRES,
   });
   const refreshToken = jwt.sign(
     { _id: user._id },
-    process.env.JWT_REFRESH_SECRET
+    process.env.TOKEN_SECRET
   );
 
   if (user.refreshTokens == null) {
@@ -156,7 +156,7 @@ const logout = async (req: Request, res: Response) => {
 
   jwt.verify(
     refreshToken,
-    process.env.JWT_REFRESH_SECRET,
+    process.env.TOKEN_SECRET,
     async (err, user: { _id: string }) => {
       console.log(err);
       if (err) return res.sendStatus(401);
@@ -192,7 +192,7 @@ const refresh = async (req: Request, res: Response) => {
 
   jwt.verify(
     refreshToken,
-    process.env.JWT_REFRESH_SECRET,
+    process.env.TOKEN_SECRET,
     async (err, user: { _id: string }) => {
       if (err) {
         console.log(err);
@@ -211,12 +211,12 @@ const refresh = async (req: Request, res: Response) => {
         }
         const accessToken = jwt.sign(
           { _id: user._id },
-          process.env.JWT_SECRET,
-          { expiresIn: process.env.JWT_EXPIRATION }
+          process.env.TOKEN_SECRET,
+          { expiresIn: process.env.TOKEN_EXPIRES }
         );
         const newRefreshToken = jwt.sign(
           { _id: user._id },
-          process.env.JWT_REFRESH_SECRET
+          process.env.TOKEN_SECRET
         );
         userDb.refreshTokens = userDb.refreshTokens.filter(
           (t) => t !== refreshToken
