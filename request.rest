@@ -11,11 +11,11 @@ POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
-    "content": "This is my first post",
+    "content": "This is my secound post",
     "owner": "KimK",
     "username": "KimK",
-    "userImgUrl": "lulu"
+    "userImgUrl": "https://media.theperfumeshop.com/medias/sys_master/prd-images/h99/he6/9189007589406/prd-front-1160142_420x420/paco-rabanne-olympea-eau-de-parfum-spray-420x420.jpg"
 }
 
 ###
-DELETE http://localhost:3000/posts/677a8e9b076fab5c9f9d9ba9
+DELETE http://localhost:3000/posts/678ae068893651bf5f8afa72

@@ -7,7 +7,7 @@
     "test": "tsc && jest --detectOpenHandles --forceExit",
     "start": "tsc && node dist/app.js",
     "lint": "eslint . --ext .ts",
-    "devstart": "nodemon ./src/app.ts"
+    "dev": "nodemon ./src/app.ts"
   },
   "author": "",
   "license": "ISC",
