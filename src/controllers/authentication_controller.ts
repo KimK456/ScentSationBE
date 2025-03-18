@@ -102,7 +102,7 @@ const generateTokens = async (user: Document & User) => {
   });
   const refreshToken = jwt.sign(
     { _id: user._id },
-    process.env.TOKEN_SECRET
+    process.env.TOKEN_REFRESH_SECRET
   );
 
   if (user.refreshTokens == null) {
@@ -156,7 +156,7 @@ const logout = async (req: Request, res: Response) => {
 
   jwt.verify(
     refreshToken,
-    process.env.TOKEN_SECRET,
+    process.env.TOKEN_REFRESH_SECRET,
     async (err, user: { _id: string }) => {
       console.log(err);
       if (err) return res.sendStatus(401);
@@ -192,7 +192,7 @@ const refresh = async (req: Request, res: Response) => {
 
   jwt.verify(
     refreshToken,
-    process.env.TOKEN_SECRET,
+    process.env.TOKEN_REFRESH_SECRET,
     async (err, user: { _id: string }) => {
       if (err) {
         console.log(err);
@@ -216,7 +216,7 @@ const refresh = async (req: Request, res: Response) => {
         );
         const newRefreshToken = jwt.sign(
           { _id: user._id },
-          process.env.TOKEN_SECRET
+          process.env.TOKEN_REFRESH_SECRET
         );
         userDb.refreshTokens = userDb.refreshTokens.filter(
           (t) => t !== refreshToken
