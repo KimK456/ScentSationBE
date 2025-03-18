@@ -190,6 +190,14 @@ const refresh = async (req: Request, res: Response) => {
   const refreshToken = authHeader && authHeader.split(" ")[1]; // Bearer <token>
   if (refreshToken == null) return res.sendStatus(401);
 
+  const decoded = jwt.verify(refreshToken, process.env.TOKEN_REFRESH_SECRET);
+
+  if (!decoded) {
+    return res.status(403).json({ error: "Invalid or expired refresh token" });
+  }
+
+
+
   jwt.verify(
     refreshToken,
     process.env.TOKEN_REFRESH_SECRET,

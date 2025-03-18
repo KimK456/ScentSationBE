@@ -1,5 +1,6 @@
 import express from "express";
 import userPostController from "../controllers/posts_controller";
+import authMiddleware from "../middlewares/authentication_middleware";
 const router = express.Router();
 
 /**
@@ -181,7 +182,7 @@ router.get("/:id", userPostController.getById.bind(userPostController));
  */
 router.post(
   "/",
-  //authMiddleware,
+  authMiddleware,
   userPostController.post.bind(userPostController)
 );
 
@@ -289,7 +290,7 @@ router.post(
  */
 router.put(
   "/:id",
-  //authMiddleware,
+  authMiddleware,
   userPostController.putById.bind(userPostController)
 );
 
@@ -395,7 +396,7 @@ router.put(
  */
 router.delete(
   "/:id",
-  //authMiddleware,
+  authMiddleware,
   userPostController.deleteById.bind(userPostController)
 );
 
