@@ -102,7 +102,7 @@ const generateTokens = async (user: Document & User) => {
   });
   const refreshToken = jwt.sign(
     { _id: user._id },
-    process.env.TOKEN_SECRET
+    process.env.TOKEN_REFRESH_SECRET
   );
 
   if (user.refreshTokens == null) {
@@ -156,7 +156,7 @@ const logout = async (req: Request, res: Response) => {
 
   jwt.verify(
     refreshToken,
-    process.env.TOKEN_SECRET,
+    process.env.TOKEN_REFRESH_SECRET,
     async (err, user: { _id: string }) => {
       console.log(err);
       if (err) return res.sendStatus(401);
@@ -190,9 +190,17 @@ const refresh = async (req: Request, res: Response) => {
   const refreshToken = authHeader && authHeader.split(" ")[1]; // Bearer <token>
   if (refreshToken == null) return res.sendStatus(401);
 
+  const decoded = jwt.verify(refreshToken, process.env.TOKEN_REFRESH_SECRET);
+
+  if (!decoded) {
+    return res.status(403).json({ error: "Invalid or expired refresh token" });
+  }
+
+
+
   jwt.verify(
     refreshToken,
-    process.env.TOKEN_SECRET,
+    process.env.TOKEN_REFRESH_SECRET,
     async (err, user: { _id: string }) => {
       if (err) {
         console.log(err);
@@ -216,7 +224,7 @@ const refresh = async (req: Request, res: Response) => {
         );
         const newRefreshToken = jwt.sign(
           { _id: user._id },
-          process.env.TOKEN_SECRET
+          process.env.TOKEN_REFRESH_SECRET
         );
         userDb.refreshTokens = userDb.refreshTokens.filter(
           (t) => t !== refreshToken
