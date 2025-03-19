@@ -13,7 +13,6 @@ const authMiddleware = (
   const token = authHeader && authHeader.split(" ")[1]; // Bearer <token>
   if (token == null) return res.sendStatus(401);
 
-  console.log("Received Token:", token);
   jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
     console.log(err);
     if (err) return res.sendStatus(401);

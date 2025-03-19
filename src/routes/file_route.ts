@@ -4,7 +4,8 @@ import multer from "multer";
 
 // const base = "http://" + process.env.DOMAIN_BASE + ":" + process.env.PORT + "/";
 // const base = "http://localhost:3000/";
-const base = process.env.URL;
+// const base = process.env.DATABASE_URL;
+const base = process.env.DOMAIN_BASE_URL;
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -21,7 +22,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post('/', upload.single("file"), function (req, res) {
-    console.log("router.post(/file: " + base + req.file.path)
+    //console.log("router.post(/file: " + base + req.file.path)
     res.status(200).send({ url: base + req.file.path })
 });
 export = router;

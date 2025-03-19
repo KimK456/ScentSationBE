@@ -102,6 +102,7 @@ const router = express.Router();
  */
 router.get(
   "/",
+  authMiddleware,
   userPostController.getAll.bind(userPostController)
 );
 
@@ -142,7 +143,9 @@ router.get(
  *               type: string
  *               example: Internal server error
  */
-router.get("/:id", userPostController.getById.bind(userPostController));
+router.get("/:id", 
+  authMiddleware,
+  userPostController.getById.bind(userPostController));
 
 /**
  * @swagger
@@ -225,11 +228,11 @@ router.post(
  *               type: string
  *               example: "Post doesnt exist"
  */
-// router.get(
-//   "/user/allPosts/:id",
-//   //authMiddleware,
-//   userPostController.getPostsByOwner.bind(userPostController)
-// );
+router.get(
+  "/user/allPosts/:id",
+  authMiddleware,
+  userPostController.getPostsByOwner.bind(userPostController)
+);
 
 /**
  * @swagger
@@ -337,11 +340,11 @@ router.put(
  *               type: string
  *               example: "Internal server error"
  */
-// router.put(
-//   "/addComment/:id",
-//   //authMiddleware,
-//   userPostController.addComment.bind(userPostController)
-// );
+router.put(
+  "/addComment/:id",
+  authMiddleware,
+  userPostController.addComment.bind(userPostController)
+);
 
 /**
  * @swagger
