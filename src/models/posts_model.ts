@@ -1,18 +1,12 @@
 import mongoose from "mongoose";
+import { PostComment, UserPost } from "../types";
 
-export interface IPosts {
-    content: string;
-    owner?: string;
-    username: string;
-    userImgUrl: string;
-}
-
-const postSchema = new mongoose.Schema<IPosts>({
+const PostComment = new mongoose.Schema<PostComment>({
   content: {
     type: String,
-    required: true,
+    reuired: true,
   },
-  owner: {
+  responder_id: {
     type: String,
     required: true,
   },
@@ -26,6 +20,31 @@ const postSchema = new mongoose.Schema<IPosts>({
   },
 });
 
-const postModel = mongoose.model<IPosts>("Posts", postSchema);
+const userPostSchema = new mongoose.Schema<UserPost>({
+  content: {
+    type: String,
+    required: true,
+  },
+  imgUrl: {
+    type: String,
+    required: false,
+  },
+  owner: {
+    type: String,
+    required: true,
+  },
+  comments: {
+    type: [PostComment],
+    required: false,
+  },
+  userImgUrl: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+});
 
-export default postModel;
+export default mongoose.model<UserPost>("UserPost", userPostSchema);
