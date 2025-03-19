@@ -7,18 +7,21 @@ import postsRoute from "./routes/posts_route";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUI from "swagger-ui-express";
 import userRoute from "./routes/user_route";
-import authRoute from "./routes/authentication_route"
-import fileRoute from "./routes/file_route"
-import cors from "cors"
+import authRoute from "./routes/authentication_route";
+import fileRoute from "./routes/file_route";
+import cors from "cors";
+import geminiRoute from "./routes/gemini_route";
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/posts", postsRoute);
+app.use("/userPost", postsRoute)
 app.use("/user", userRoute);
 app.use("/auth", authRoute);
-app.use("/file", fileRoute)
+app.use("/file", fileRoute);
+app.use("/gemini", geminiRoute);
+app.use("/public", express.static("public"));
 
 const options = {
   definition: {

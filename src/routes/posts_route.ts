@@ -1,5 +1,6 @@
 import express from "express";
 import userPostController from "../controllers/posts_controller";
+import authMiddleware from "../middlewares/authentication_middleware";
 const router = express.Router();
 
 /**
@@ -101,6 +102,7 @@ const router = express.Router();
  */
 router.get(
   "/",
+  authMiddleware,
   userPostController.getAll.bind(userPostController)
 );
 
@@ -141,7 +143,9 @@ router.get(
  *               type: string
  *               example: Internal server error
  */
-router.get("/:id", userPostController.getById.bind(userPostController));
+router.get("/:id", 
+  authMiddleware,
+  userPostController.getById.bind(userPostController));
 
 /**
  * @swagger
@@ -181,7 +185,7 @@ router.get("/:id", userPostController.getById.bind(userPostController));
  */
 router.post(
   "/",
-  //authMiddleware,
+  authMiddleware,
   userPostController.post.bind(userPostController)
 );
 
@@ -224,11 +228,11 @@ router.post(
  *               type: string
  *               example: "Post doesnt exist"
  */
-// router.get(
-//   "/user/allPosts/:id",
-//   //authMiddleware,
-//   userPostController.getPostsByOwner.bind(userPostController)
-// );
+router.get(
+  "/user/allPosts/:id",
+  authMiddleware,
+  userPostController.getPostsByOwner.bind(userPostController)
+);
 
 /**
  * @swagger
@@ -289,7 +293,7 @@ router.post(
  */
 router.put(
   "/:id",
-  //authMiddleware,
+  authMiddleware,
   userPostController.putById.bind(userPostController)
 );
 
@@ -336,11 +340,11 @@ router.put(
  *               type: string
  *               example: "Internal server error"
  */
-// router.put(
-//   "/addComment/:id",
-//   //authMiddleware,
-//   userPostController.addComment.bind(userPostController)
-// );
+router.put(
+  "/addComment/:id",
+  authMiddleware,
+  userPostController.addComment.bind(userPostController)
+);
 
 /**
  * @swagger
@@ -395,7 +399,7 @@ router.put(
  */
 router.delete(
   "/:id",
-  //authMiddleware,
+  authMiddleware,
   userPostController.deleteById.bind(userPostController)
 );
 
