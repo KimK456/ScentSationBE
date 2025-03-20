@@ -100,6 +100,7 @@ const generateTokens = async (user: Document & User) => {
   const accessToken = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
     expiresIn: process.env.TOKEN_EXPIRES,
   });
+  console.log(user.imgUrl)
   const refreshToken = jwt.sign(
     { _id: user._id },
     process.env.TOKEN_REFRESH_SECRET
@@ -158,7 +159,7 @@ const logout = async (req: Request, res: Response) => {
     refreshToken,
     process.env.TOKEN_REFRESH_SECRET,
     async (err, user: { _id: string }) => {
-      console.log(err);
+      //console.log(err);
       if (err) return res.sendStatus(401);
 
       try {
@@ -203,7 +204,7 @@ const refresh = async (req: Request, res: Response) => {
     process.env.TOKEN_REFRESH_SECRET,
     async (err, user: { _id: string }) => {
       if (err) {
-        console.log(err);
+        //console.log(err);
         return res.status(401).send("Refresh token invalid");
       }
       try {

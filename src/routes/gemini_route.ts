@@ -9,7 +9,6 @@ const router = express.Router();
 
 router.post('/', async (req: Request, res: Response) => {
   const prompt = req.body.prompt;
-  console.log(req.body)
   const apiKey = process.env.GEMINI_API_KEY;
   const apiUrl = process.env.GEMINI_API_URL;
 
@@ -38,7 +37,7 @@ router.post('/', async (req: Request, res: Response) => {
         'Content-Type': 'application/json',
       },
     });
-    console.log(response.data.candidates[0].content.parts[0].text);
+
     res.json({ response: response.data.candidates[0].content.parts[0].text });
   } catch (error: any) {
     console.error('Error calling Gemini API:', error.response ? error.response.data : error.message);
