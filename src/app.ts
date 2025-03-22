@@ -1,8 +1,15 @@
 import initApp from "./server";
-const port = process.env.PORT;
+import https from 'https';
+import fs from 'fs';
+
+const port = 44;
 
 initApp().then((app) => {
-  app.listen(port, () => {
-    console.log(`App listening at http://localhost:${port}`);
+  const options = {
+    key: fs.readFileSync('./client-key.pem'),
+    cert: fs.readFileSync('./client-cert.pem')
+  };
+  https.createServer(options, app).listen(port, "0.0.0.0", () => {
+    console.log(`App listening at http://localhost`);
   });
 });
