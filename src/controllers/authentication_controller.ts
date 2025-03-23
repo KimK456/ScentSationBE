@@ -106,7 +106,6 @@ const generateTokens = async (user: Document & User) => {
   const accessToken = jwt.sign({ _id: user._id }, getEnv("TOKEN_SECRET"), {
     expiresIn: getEnv("TOKEN_EXPIRES")
   } as jwt.SignOptions);
-  console.log(user.imgUrl)
   const refreshToken = jwt.sign(
     { _id: user._id },
     getEnv("TOKEN_REFRESH_SECRET")

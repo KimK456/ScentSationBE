@@ -3,6 +3,7 @@ import { AuthResquest } from "../middlewares/authentication_middleware";
 import UserPostModel from "../models/posts_model";
 import { UserPost } from "../types";
 import { BaseController } from "./base_controller";
+import { Console } from "console";
 
 class UserPostController extends BaseController<UserPost> {
   constructor() {
@@ -12,6 +13,12 @@ class UserPostController extends BaseController<UserPost> {
   async post(req: AuthResquest, res: Response) {
     const id = req.user._id;
     req.body.owner = id;
+    console.log("---------------------------------------------------");
+    console.log(req.body.imageUrl);
+    console.log(req.body.imgUrl);
+    console.log(req.body.userImgUrl);
+    console.log("---------------------------------------------------");
+    console.log(req.body);
     super.post(req, res);
   }
 
