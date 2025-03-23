@@ -22,7 +22,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post('/', upload.single("file"), function (req, res) {
-    //console.log("router.post(/file: " + base + req.file.path)
-    res.status(200).send({ url: base + req.file.path })
+    const protocol = req.protocol;
+    const host = req.get("host"); // e.g. 193.106.55.237
+    const imageUrl = `${protocol}://${host}/public/${req.file.filename}`;
+    return res.status(200).send({ imageUrl })
 });
-export = router;
+export default router;

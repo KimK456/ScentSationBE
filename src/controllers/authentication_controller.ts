@@ -10,6 +10,12 @@ import { User } from "../types/user.type";
 
 const client = new OAuth2Client();
 
+function getEnv(name: string): string {
+  const value = process.env[name];
+  if (!value) throw new Error(`Missing environment variable: ${name}`);
+  return value;
+}
+
 const googleSignIn = async (req: Request, res: Response) => {
   try {
     const ticket = await client.verifyIdToken({
@@ -97,13 +103,13 @@ const register = async (req: Request, res: Response) => {
 };
 
 const generateTokens = async (user: Document & User) => {
-  const accessToken = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
-    expiresIn: process.env.TOKEN_EXPIRES,
-  });
+  const accessToken = jwt.sign({ _id: user._id }, getEnv("TOKEN_SECRET"), {
+    expiresIn: getEnv("TOKEN_EXPIRES")
+  } as jwt.SignOptions);
   console.log(user.imgUrl)
   const refreshToken = jwt.sign(
     { _id: user._id },
-    process.env.TOKEN_REFRESH_SECRET
+    getEnv("TOKEN_REFRESH_SECRET")
   );
 
   if (user.refreshTokens == null) {
@@ -220,12 +226,12 @@ const refresh = async (req: Request, res: Response) => {
         }
         const accessToken = jwt.sign(
           { _id: user._id },
-          process.env.TOKEN_SECRET,
-          { expiresIn: process.env.TOKEN_EXPIRES }
+          getEnv("TOKEN_SECRET"),
+          { expiresIn: getEnv("TOKEN_EXPIRES") } as jwt.SignOptions
         );
         const newRefreshToken = jwt.sign(
           { _id: user._id },
-          process.env.TOKEN_REFRESH_SECRET
+          getEnv("TOKEN_REFRESH_SECRET")
         );
         userDb.refreshTokens = userDb.refreshTokens.filter(
           (t) => t !== refreshToken
